@@ -221,7 +221,7 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
       <h2 class="sec-title" id="t-turmas">Turmas e horários</h2>
       <p class="sec-sub">Duas turmas por dia: escolha o horário que funciona melhor para a sua família.</p>
 
-      <div class="subject"><h3>7º ano</h3><small>Dia 11/11, quarta-feira</small></div>
+      <div class="subject"><h3>7º ano</h3><small>10 e 11 de novembro</small></div>
       <div class="turmas">
         <article class="turma t7">
           <h4>Português</h4>
@@ -236,13 +236,13 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
           <h4>Matemática</h4>
           <ul class="facts">
             <li><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg><div><b>Professora Ireni de Souza</b></div></li>
-            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><b>Dia 11/11</b><br>quarta-feira</div></li>
+            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><b>Dia 10/11</b><br>terça-feira</div></li>
             <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="hours"><span class="hour">17h</span><span class="or">ou</span><span class="hour">19h</span></div></li>
             <li><svg viewBox="0 0 24 24"><path d="M2 5c3-1.5 7-1.5 10 1 3-2.5 7-2.5 10-1v14c-3-1.5-7-1.5-10 1-3-2.5-7-2.5-10-1z"/><path d="M12 6v14"/></svg><div>Revisão completa de Matemática</div></li>
           </ul>
         </article>
       </div>
-      <p class="sec-sub" style="margin-top:16px">Vai fazer o combo? Faça um aulão às 17h e o outro às 19h.</p>
+      <p class="sec-sub" style="margin-top:16px">Matemática na terça (10/11) e Português na quarta (11/11). No combo, você escolhe o horário de cada aulão.</p>
 
       <div class="inc">
         <div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M1 20h22"/></svg><span><b>Aulas online via Zoom</b><small>O link chega por e-mail após a confirmação do pagamento.</small></span></div>
@@ -294,17 +294,22 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
             </div>
           </fieldset>
           <fieldset id="horabox">
-            <legend>Horário (11/11) <span class="req">*</span></legend>
+            <legend id="horalegend">Horário <span class="req">*</span></legend>
             <div class="choices">
               <label class="choice"><input type="radio" name="hora" id="h17" value="17h"><span>17h</span></label>
               <label class="choice"><input type="radio" name="hora" id="h19" value="19h"><span>19h</span></label>
             </div>
           </fieldset>
           <fieldset id="combobox" hidden>
-            <legend>Ordem dos aulões no combo (11/11) <span class="req">*</span></legend>
+            <legend>Horário de Matemática (terça, 10/11) <span class="req">*</span></legend>
             <div class="choices">
-              <label class="choice"><input type="radio" name="ordem" id="c1" value="Português às 17h e Matemática às 19h"><span>Português 17h<small>Matemática 19h</small></span></label>
-              <label class="choice"><input type="radio" name="ordem" id="c2" value="Matemática às 17h e Português às 19h"><span>Matemática 17h<small>Português 19h</small></span></label>
+              <label class="choice"><input type="radio" name="horaM" id="hm17" value="17h"><span>17h</span></label>
+              <label class="choice"><input type="radio" name="horaM" id="hm19" value="19h"><span>19h</span></label>
+            </div>
+            <legend style="margin-top:10px">Horário de Português (quarta, 11/11) <span class="req">*</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="horaP" id="hp17" value="17h"><span>17h</span></label>
+              <label class="choice"><input type="radio" name="horaP" id="hp19" value="19h"><span>19h</span></label>
             </div>
           </fieldset>
           <div><label for="resp">Nome do responsável <span class="req">*</span></label><input type="text" id="resp" autocomplete="name"></div>
@@ -356,6 +361,7 @@ const CONFIG = {
   }
 };
 // =====================================================
+const DATAS = { port: "quarta, 11/11", mat: "terça, 10/11" };
 const PIXPATH = "M5.283 18.36a3.505 3.505 0 0 0 2.493-1.032l3.6-3.6a.684.684 0 0 1 .946 0l3.613 3.613a3.504 3.504 0 0 0 2.493 1.032h.71l-4.56 4.56a3.647 3.647 0 0 1-5.156 0L4.85 18.36ZM18.428 5.627a3.505 3.505 0 0 0-2.493 1.032l-3.613 3.614a.67.67 0 0 1-.946 0l-3.6-3.6A3.505 3.505 0 0 0 5.283 5.64h-.434l4.573-4.572a3.646 3.646 0 0 1 5.156 0l4.559 4.559ZM1.068 9.422 3.79 6.699h1.492a2.483 2.483 0 0 1 1.744.722l3.6 3.6a1.73 1.73 0 0 0 2.443 0l3.614-3.613a2.482 2.482 0 0 1 1.744-.723h1.767l2.737 2.737a3.646 3.646 0 0 1 0 5.156l-2.736 2.736h-1.768a2.482 2.482 0 0 1-1.744-.722l-3.613-3.613a1.77 1.77 0 0 0-2.444 0l-3.6 3.6a2.483 2.483 0 0 1-1.744.722H3.791l-2.723-2.723a3.646 3.646 0 0 1 0-5.156";
 const $ = id => document.getElementById(id);
 const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -405,6 +411,8 @@ function atualiza(){
   $("horabox").hidden = !!(op && !op.horario);
   $("materiabox").hidden = !(op && op.materia);
   $("combobox").hidden = !(op && op.combo);
+  const o = sel("opcao");
+  $("horalegend").firstChild.textContent = o && DATAS[o.value] ? "Horário (" + DATAS[o.value] + ") " : "Horário ";
   renderPix(op);
 }
 document.querySelectorAll('input[name=opcao], input[name=materia]').forEach(r => r.addEventListener("change", atualiza));
@@ -413,13 +421,13 @@ atualiza();
 $("form").addEventListener("submit", async e => {
   e.preventDefault();
   const op = opcaoAtual();
-  const hora = sel("hora"), mat = sel("materia"), ordem = sel("ordem");
+  const hora = sel("hora"), mat = sel("materia"), horaM = sel("horaM"), horaP = sel("horaP");
   const resp = $("resp").value.trim(), tel = $("tel").value.trim(), aluno = $("aluno").value.trim(), email = $("email").value.trim();
   const falta = [];
   if (!op) falta.push("o que você quer contratar");
   if (op && op.materia && !mat) falta.push("a matéria");
   if (op && op.horario && !hora) falta.push("o horário");
-  if (op && op.combo && !ordem) falta.push("a ordem dos aulões");
+  if (op && op.combo && (!horaM || !horaP)) falta.push("o horário de cada aulão");
   if (!resp) falta.push("o nome do responsável");
   if (tel.replace(/\D/g,"").length < 10) falta.push("um WhatsApp com DDD");
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) falta.push("um e-mail válido");
@@ -429,8 +437,9 @@ $("form").addEventListener("submit", async e => {
   let nome = op.nome;
   if (op.materia) nome += " de " + CONFIG.profs[mat.value].materia;
   const linhas = ["Olá! Quero fazer a inscrição na Virada Educação:", "", "Opção: " + nome, "Turma: 7º ano"];
-  if (op.horario) linhas.push("Dia e horário: 11/11, às " + hora.value);
-  if (op.combo) linhas.push("Dia e horários: 11/11, " + ordem.value);
+  const k = sel("opcao").value;
+  if (op.horario) linhas.push("Dia e horário: " + DATAS[k] + ", às " + hora.value);
+  if (op.combo) linhas.push("Matemática: " + DATAS.mat + ", às " + horaM.value, "Português: " + DATAS.port + ", às " + horaP.value);
   linhas.push("Aluno(a): " + aluno, "Responsável: " + resp, "WhatsApp: " + tel);
   if (email) linhas.push("E-mail: " + email);
   linhas.push("Valor: " + brl(op.valor));
@@ -439,8 +448,8 @@ $("form").addEventListener("submit", async e => {
   const msg = linhas.join("\n");
   // registra na planilha
   const pg = pagamentos(op);
-  const horario = op.combo ? "11/11, " + ordem.value
-                : op.horario ? CONFIG.profs[op === CONFIG.opcoes.port ? "port" : "mat"].materia + " às " + hora.value
+  const horario = op.combo ? "Matemática às " + horaM.value + "; Português às " + horaP.value
+                : op.horario ? CONFIG.profs[k].materia + " às " + hora.value
                 : "A combinar";
   const dados = { opcao: nome, horario, aluno, responsavel: resp, whatsapp: tel, email, valor: op.valor,
     pixKatya: (pg.find(p => p[0] === "port") || [0,0])[1], pixIreni: (pg.find(p => p[0] === "mat") || [0,0])[1] };
