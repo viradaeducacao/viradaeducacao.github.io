@@ -219,9 +219,9 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
 
     <section aria-labelledby="t-turmas">
       <h2 class="sec-title" id="t-turmas">Turmas e horários</h2>
-      <p class="sec-sub">Duas turmas por dia: escolha o horário que funciona melhor para a sua família.</p>
+      <p class="sec-sub">Tudo para o 7º ano do Loyola. Nos aulões, são duas turmas por dia: escolha o horário que funciona melhor para a sua família.</p>
 
-      <div class="subject"><h3>7º ano</h3><small>10 e 11 de novembro</small></div>
+      <div class="subject"><h3>Aulões de revisão</h3><small>10 e 11 de novembro</small></div>
       <div class="turmas">
         <article class="turma t7">
           <h4>Português</h4>
@@ -244,6 +244,29 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
       </div>
       <p class="sec-sub" style="margin-top:16px">Matemática na terça (10/11) e Português na quarta (11/11). No combo, você escolhe o horário de cada aulão.</p>
 
+      <div class="subject" id="revisao"><h3>Revisão do simulado</h3><small>Quarta, 28/10</small></div>
+      <div class="turmas">
+        <article class="turma t7">
+          <h4>Português</h4>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg><div><b>Professora Kátya Maciel</b></div></li>
+            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><b>Dia 28/10</b><br>quarta-feira</div></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="hours"><span class="hour">15h</span></div></li>
+            <li><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h6"/></svg><div>Correção e revisão do simulado de Língua Portuguesa</div></li>
+          </ul>
+        </article>
+        <article class="turma t8">
+          <h4>Matemática</h4>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg><div><b>Professora Ireni de Souza</b></div></li>
+            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><b>Dia 28/10</b><br>quarta-feira</div></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="hours"><span class="hour">17h</span></div></li>
+            <li><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h6"/></svg><div>Correção e revisão do simulado de Matemática</div></li>
+          </ul>
+        </article>
+      </div>
+      <p class="sec-sub" style="margin-top:16px">As duas revisões são no mesmo dia: dá para fazer as duas no combo.</p>
+
       <div class="inc">
         <div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M1 20h22"/></svg><span><b>Aulas ao vivo pelo Google Meet</b><small>Após a confirmação do pagamento, você recebe o link por e-mail e o convite na Google Agenda.</small></span></div>
         <div><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h6"/></svg><span><b>Mapas mentais e exercícios</b><small>Material de revisão para estudar depois.</small></span></div>
@@ -265,7 +288,9 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
             <ul class="plist">
               <li><span>Aulão de Português</span><b>R$ 100</b></li>
               <li><span>Aulão de Matemática</span><b>R$ 100</b></li>
-              <li><span>Combo Português + Matemática</span><b>R$ 180</b></li>
+              <li><span>Combo aulões Português + Matemática</span><b>R$ 180</b></li>
+              <li><span>Revisão do simulado (cada matéria)</span><b>R$ 100</b></li>
+              <li><span>Combo revisão Português + Matemática</span><b>R$ 180</b></li>
               <li><span>Aula individual</span><b>R$ 150</b></li>
             </ul>
             <div class="lbl" style="margin-top:16px">Total da sua escolha</div>
@@ -281,7 +306,10 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
             <div class="choices">
               <label class="choice"><input type="radio" name="opcao" id="o1" value="port"><span>Aulão de Português<small>Kátya · R$ 100</small></span></label>
               <label class="choice"><input type="radio" name="opcao" id="o2" value="mat"><span>Aulão de Matemática<small>Ireni · R$ 100</small></span></label>
-              <label class="choice"><input type="radio" name="opcao" id="o3" value="combo"><span>Combo Port. + Mat.<small>R$ 180</small></span></label>
+              <label class="choice"><input type="radio" name="opcao" id="o3" value="combo"><span>Combo aulões Port. + Mat.<small>10 e 11/11 · R$ 180</small></span></label>
+              <label class="choice"><input type="radio" name="opcao" id="o5" value="revport"><span>Revisão do simulado – Português<small>28/10, 15h · R$ 100</small></span></label>
+              <label class="choice"><input type="radio" name="opcao" id="o6" value="revmat"><span>Revisão do simulado – Matemática<small>28/10, 17h · R$ 100</small></span></label>
+              <label class="choice"><input type="radio" name="opcao" id="o7" value="revcombo"><span>Combo revisão Port. + Mat.<small>28/10 · R$ 180</small></span></label>
               <label class="choice"><input type="radio" name="opcao" id="o4" value="individual"><span>Aula individual<small>R$ 150</small></span></label>
             </div>
             <small class="hint" id="hint"></small>
@@ -355,6 +383,15 @@ const CONFIG = {
     mat:        { nome: "Aulão de Matemática", valor: 100, horario: true, pagamentos: [["mat", 100]] },
     combo:      { nome: "Combo Aulão Português + Matemática", valor: 180, horario: false, combo: true,
                   pagamentos: [["port", 90], ["mat", 90]],
+                  dica: "No combo, o valor é dividido: um PIX para cada professora." },
+    revport:    { nome: "Revisão do Simulado de Português", valor: 100, horario: false, pagamentos: [["port", 100]],
+                  fixo: "Revisão de Português às 15h", quando: "Português: quarta, 28/10, às 15h" },
+    revmat:     { nome: "Revisão do Simulado de Matemática", valor: 100, horario: false, pagamentos: [["mat", 100]],
+                  fixo: "Revisão de Matemática às 17h", quando: "Matemática: quarta, 28/10, às 17h" },
+    revcombo:   { nome: "Combo Revisão do Simulado Português + Matemática", valor: 180, horario: false,
+                  pagamentos: [["port", 90], ["mat", 90]],
+                  fixo: "Revisão de Português às 15h; Revisão de Matemática às 17h",
+                  quando: "Quarta, 28/10: Português às 15h e Matemática às 17h",
                   dica: "No combo, o valor é dividido: um PIX para cada professora." },
     individual: { nome: "Aula individual", valor: 150, horario: false, materia: true,
                   dica: "Dia e horário da aula individual são combinados pelo WhatsApp." }
@@ -440,6 +477,7 @@ $("form").addEventListener("submit", async e => {
   const k = sel("opcao").value;
   if (op.horario) linhas.push("Dia e horário: " + DATAS[k] + ", às " + hora.value);
   if (op.combo) linhas.push("Matemática: " + DATAS.mat + ", às " + horaM.value, "Português: " + DATAS.port + ", às " + horaP.value);
+  if (op.quando) linhas.push("Dia e horário: " + op.quando);
   linhas.push("Aluno(a): " + aluno, "Responsável: " + resp, "WhatsApp: " + tel);
   if (email) linhas.push("E-mail: " + email);
   linhas.push("Valor: " + brl(op.valor));
@@ -450,6 +488,7 @@ $("form").addEventListener("submit", async e => {
   const pg = pagamentos(op);
   const horario = op.combo ? "Matemática às " + horaM.value + "; Português às " + horaP.value
                 : op.horario ? CONFIG.profs[k].materia + " às " + hora.value
+                : op.fixo ? op.fixo
                 : "A combinar";
   const dados = { opcao: nome, horario, aluno, responsavel: resp, whatsapp: tel, email, valor: op.valor,
     pixKatya: (pg.find(p => p[0] === "port") || [0,0])[1], pixIreni: (pg.find(p => p[0] === "mat") || [0,0])[1] };
