@@ -344,10 +344,11 @@ function montarGrupos() {
 const prof = nome => (DADOS.professoras || []).find(p => p.nome === nome) || { nome, materia: "", pix: "" };
 
 /* ---------- vitrine ---------- */
+const PADRAO = [{ nome: "Kátya Maciel", materia: "Português" }, { nome: "Ireni de Souza", materia: "Matemática" }];
 function renderProfessoras() {
   const duo = $("duo"); duo.textContent = "";
-  const usadas = new Set(DADOS.aulas.map(a => a.professora));
-  (DADOS.professoras || []).filter(p => usadas.has(p.nome) || !usadas.size).slice(0, 2).forEach(p => {
+  const lista = DADOS && (DADOS.professoras || []).length ? DADOS.professoras : PADRAO;
+  lista.slice(0, 2).forEach(p => {
     const f = el("figure", "prof"), fr = el("div", "frame");
     if (FOTOS[p.nome]) { const img = new Image(560, 700); img.src = FOTOS[p.nome]; img.alt = "Professora " + p.nome; fr.append(img); }
     else fr.append(el("span", "initials", p.nome.split(" ")[0]));
@@ -545,6 +546,7 @@ $("form").addEventListener("submit", async ev => {
 });
 $("copymsg").addEventListener("click", ev => copy($("msg").textContent, ev.currentTarget));
 
+renderProfessoras();
 carregar();
 </script>
 </body>
