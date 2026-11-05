@@ -176,6 +176,16 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
   .motto{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover{transform:none}}
+.particular{margin-top:34px;display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:center;background:var(--card);border:2px dashed var(--rose);border-radius:18px;padding:24px 26px}
+.particular > *{min-width:0}
+.particular h3{font-family:var(--display);font-size:2.2rem;color:var(--navy);text-transform:uppercase;margin:0 0 6px}
+.particular p{margin:0;color:var(--muted)}
+.particular-cta{display:grid;justify-items:start;gap:4px}
+.particular-cta b{font-family:var(--display);font-weight:900;font-size:2.6rem;color:var(--rose);line-height:1}
+.particular-cta small{color:var(--muted);margin-bottom:8px}
+textarea{width:100%;font:inherit;padding:11px 12px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);resize:vertical}
+textarea:focus{border-color:var(--navy);outline:none}
+@media (max-width:760px){.particular{grid-template-columns:1fr}}
 .tprice{font-family:var(--display);font-weight:900;font-size:1.6rem;color:var(--navy);margin:14px 0 0}
 .initials{font-family:var(--hand);font-size:3rem;color:var(--navy-soft)}
 </style>
@@ -214,6 +224,18 @@ footer .bye{font-family:var(--hand);font-size:2.2rem;color:var(--rose)}
       <h2 class="sec-title" id="t-turmas">Próximas aulas</h2>
       <p class="sec-sub" id="agenda-sub">Carregando as aulas...</p>
       <div id="agenda"></div>
+
+      <div class="particular" id="particular" hidden>
+        <div>
+          <h3>Aula particular</h3>
+          <p>Uma aula só para o seu filho, online pelo Google Meet, no dia e horário que combinarmos com você. Ideal para tirar dúvidas, preparar para uma prova ou recuperar um conteúdo.</p>
+        </div>
+        <div class="particular-cta">
+          <b id="particular-valor"></b>
+          <small>por aula de 1 hora · horário a combinar</small>
+          <button type="button" class="btn" id="particular-btn">Quero uma aula particular</button>
+        </div>
+      </div>
 
       <div class="inc">
         <div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M1 20h22"/></svg><span><b>Aulas ao vivo pelo Google Meet</b><small>Após a confirmação do pagamento, você recebe o link por e-mail e o convite na Google Agenda.</small></span></div>
@@ -325,6 +347,7 @@ async function carregar() {
   renderAgenda();
   renderValores();
   renderOpcoes();
+  renderParticular();
   const w = DADOS.config && DADOS.config.whatsapp;
   if (w) $("zapnum").textContent = w.replace(/^55(\d{2})(\d{5})(\d{4})$/, "$1 $2-$3");
 }
@@ -334,7 +357,7 @@ function montarGrupos() {
   DADOS.aulas
     .slice().sort((a, b) => (a.data + a.inicio).localeCompare(b.data + b.inicio))
     .forEach(a => {
-      const k = a.titulo + "|" + a.data;
+      const k = a.titulo + "|" + a.data + "|" + (a.publico || "");
       if (!mapa.has(k)) mapa.set(k, { chave: k, titulo: a.titulo, materia: a.materia, professora: a.professora, publico: a.publico,
                                      descricao: a.descricao, data: a.data, valor: a.valor, sessoes: [] });
       mapa.get(k).sessoes.push(a);
@@ -393,18 +416,30 @@ function renderAgenda() {
 function renderValores() {
   const pl = $("plist"); pl.textContent = "";
   const item = (n, v) => { const li = el("li"); li.append(el("span", null, n), el("b", null, brl(v))); pl.append(li); };
-  GRUPOS.forEach(g => item(g.titulo + " · " + ddmm(g.data), g.valor));
+  GRUPOS.forEach(g => item(g.titulo + (g.publico ? " · " + g.publico : "") + " · " + ddmm(g.data), g.valor));
   (DADOS.combos || []).forEach(c => item(c.nome, c.valor));
-  if (DADOS.config && DADOS.config.individual != null) item("Aula individual", DADOS.config.individual);
+  if (DADOS.config && DADOS.config.individual != null) item("Aula particular (horário a combinar)", DADOS.config.individual);
 }
+
+function renderParticular() {
+  const v = DADOS.config && DADOS.config.individual;
+  if (v == null) return;
+  $("particular-valor").textContent = brl(v);
+  $("particular").hidden = false;
+}
+$("particular-btn").addEventListener("click", () => {
+  const r = document.getElementById("op-ind");
+  if (r) { r.checked = true; atualiza(); }
+  $("inscricao").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+});
 
 /* ---------- formulário ---------- */
 function opcoesDisponiveis() {
   const ops = [];
-  GRUPOS.forEach((g, i) => ops.push({ id: "g" + i, tipo: "aula", grupo: g, nome: g.titulo, sub: ddmm(g.data) + " · " + brl(g.valor), valor: g.valor }));
+  GRUPOS.forEach((g, i) => ops.push({ id: "g" + i, tipo: "aula", grupo: g, nome: g.titulo, sub: (g.publico ? g.publico + " · " : "") + ddmm(g.data) + " · " + brl(g.valor), valor: g.valor }));
   (DADOS.combos || []).forEach(c => ops.push({ id: "c" + c.id, tipo: "combo", combo: c, nome: c.nome, sub: "Combo · " + brl(c.valor), valor: c.valor }));
   if (DADOS.config && DADOS.config.individual != null)
-    ops.push({ id: "ind", tipo: "individual", nome: "Aula individual", sub: "Horário a combinar · " + brl(DADOS.config.individual), valor: DADOS.config.individual });
+    ops.push({ id: "ind", tipo: "individual", nome: "Aula particular", sub: "Horário a combinar · " + brl(DADOS.config.individual), valor: DADOS.config.individual });
   return ops;
 }
 let OPS = [];
@@ -448,12 +483,20 @@ function atualiza() {
     det.append(radios("s-aula", "Horário (" + quando(op.grupo.data) + ")", op.grupo.sessoes.map(s => ({ valor: s.id, rotulo: hora(s.inicio) }))));
   } else if (op.tipo === "combo") {
     op.combo.titulos.forEach((t, i) => {
-      det.append(radios("s-combo-" + i, "Horário – " + t, sessoesDoTitulo(t).map(s => ({ valor: s.id, rotulo: hora(s.inicio), sub: quando(s.data) }))));
+      det.append(radios("s-combo-" + i, "Horário – " + t, sessoesDoTitulo(t).map(s => ({ valor: s.id, rotulo: hora(s.inicio), sub: quando(s.data) + (s.publico ? " · " + s.publico : "") }))));
     });
     $("hint").textContent = op.combo.descricao || "No combo, o valor é dividido entre as professoras: um PIX para cada uma.";
   } else {
     det.append(radios("s-prof", "Matéria / professora", (DADOS.professoras || []).map(p => ({ valor: p.nome, rotulo: p.materia || p.nome, sub: p.nome }))));
-    $("hint").textContent = "Dia e horário da aula individual são combinados pelo WhatsApp.";
+    const c1 = el("div"), l1 = el("label", null, "Dias e horários que funcionam para vocês "); l1.htmlFor = "pref";
+    l1.append(el("span", "req", "*"));
+    const t1 = el("textarea"); t1.id = "pref"; t1.rows = 2; t1.placeholder = "Ex.: terças ou quintas, depois das 14h";
+    c1.append(l1, t1);
+    const c2 = el("div"), l2 = el("label", null, "O que o aluno precisa estudar? (opcional)"); l2.htmlFor = "assunto";
+    const t2 = el("textarea"); t2.id = "assunto"; t2.rows = 2; t2.placeholder = "Ex.: interpretação de texto, frações, prova da semana que vem";
+    c2.append(l2, t2);
+    det.append(c1, c2);
+    $("hint").textContent = "Aula particular online, de 1 hora. Depois do pagamento, a professora fala com você pelo WhatsApp para fechar o dia e o horário.";
   }
   atualizaPix();
 }
@@ -464,7 +507,9 @@ function escolha() {
   const porId = Object.fromEntries(DADOS.aulas.map(a => [a.id, a]));
   if (op.tipo === "individual") {
     const p = sel("s-prof"); if (!p) return { op, faltando: "a matéria" };
-    return { op, ids: [], divisao: [[p.value, op.valor]], professora: p.value };
+    const pref = ($("pref") && $("pref").value.trim()) || "", assunto = ($("assunto") && $("assunto").value.trim()) || "";
+    if (!pref) return { op, faltando: "os dias e horários de preferência", divisao: [[p.value, op.valor]] };
+    return { op, ids: [], divisao: [[p.value, op.valor]], professora: p.value, preferencia: pref, assunto };
   }
   let ids = [];
   if (op.tipo === "aula") { const s = sel("s-aula"); if (!s) return { op, faltando: "o horário" }; ids = [s.value]; }
@@ -516,14 +561,17 @@ $("form").addEventListener("submit", async ev => {
   const op = e.op;
   const linhas = ["Olá! Quero fazer a inscrição na Virada Educação:", "", "Opção: " + op.nome];
   if (e.aulas) e.aulas.forEach(a => linhas.push("• " + a.titulo + " – " + quando(a.data) + ", às " + hora(a.inicio)));
-  if (op.tipo === "individual") linhas.push("Matéria: " + (prof(e.professora).materia || e.professora));
+  if (op.tipo === "individual") {
+    linhas.push("Matéria: " + (prof(e.professora).materia || e.professora) + " (" + e.professora + ")", "Preferência de horário: " + e.preferencia);
+    if (e.assunto) linhas.push("O que estudar: " + e.assunto);
+  }
   linhas.push("Aluno(a): " + aluno, "Responsável: " + resp, "WhatsApp: " + tel, "E-mail: " + email, "Valor: " + brl(op.valor));
   e.divisao.forEach(([n, v]) => linhas.push("PIX para " + n + ": " + brl(v)));
   linhas.push("", "Segue o comprovante do PIX.");
   const msg = linhas.join("\n");
 
   const dados = { tipo: op.tipo, aulas: e.ids, combo: op.combo && op.combo.id, professora: e.professora,
-                  aluno, responsavel: resp, whatsapp: tel, email };
+                  preferencia: e.preferencia, assunto: e.assunto, aluno, responsavel: resp, whatsapp: tel, email };
   const btn = $("enviar"); btn.disabled = true; btn.textContent = "Enviando...";
   let gravou = false, motivo = "";
   try {
